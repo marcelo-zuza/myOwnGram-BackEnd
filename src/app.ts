@@ -5,9 +5,7 @@ const cors = require("cors");
 //router
 import router from "./routes/Router";
 //db
-
-const conn = require('./config/db')
-
+import conn from "./config/db";
 const port = process.env.PORT
 const app = express();
 
@@ -24,6 +22,7 @@ app.use("/uploads", express.static(path.join(__dirname, '../public')))
 // routes
 app.use(router)
 
-app.listen(port, () => {
-    console.log(`\nServer listening on port http://localhost:${port}\n`);
+app.listen(port, async () => {
+    await conn()
+    console.log(`Server running on port ${port}`)
 })
